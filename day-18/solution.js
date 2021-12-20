@@ -65,7 +65,6 @@ function pushEnd(s, n) {
     while (!isNaN(parseInt(s[j]))) j--;
 
     const n0 = parseInt(s.slice(j+1, i+1));
-    if (isNaN(n0)) debugger;
     s = s.slice(0, j+1) + (n0 + n) + s.slice(i+1);
     break;
   }
@@ -81,7 +80,6 @@ function pushStart(s, n) {
     while (!isNaN(parseInt(s[j]))) j++;
 
     const n0 = parseInt(s.slice(i, j));
-    if (isNaN(n0)) debugger;
     s = s.slice(0, i) + (n0 + n) + s.slice(j);
     break;
   }
