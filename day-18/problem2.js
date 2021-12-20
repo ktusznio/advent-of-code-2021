@@ -14,7 +14,6 @@ function add(left, right) {
 
 function reduce(pair) {
   while (true) {
-    console.log(JSON.stringify(pair));
     if (explode(pair)) continue;
     if (!split(pair)) break;
   }
@@ -89,64 +88,22 @@ function split(pair) {
   return split(pair[0]) || split(pair[1]);
 }
 
-for (let i = 1; i < input.length; i++) {
-  const pair2 = JSON.parse(input[i]);
-  pair = add(pair, pair2);
+let answer = 0;
+
+for (let i = 0; i < input.length; i++) {
+  for (let j = i+1; j < input.length; j++) {
+    let pair1 = JSON.parse(input[i]);
+    let pair2 = JSON.parse(input[j]);
+
+    const mag1 = magnitude(add(pair1, pair2));
+
+    pair1 = JSON.parse(input[i]);
+    pair2 = JSON.parse(input[j]);
+
+    const mag2 = magnitude(add(pair2, pair1));
+
+    answer = Math.max(answer, mag1, mag2);
+  }
 }
 
-console.log("problem 1");
-console.log( JSON.stringify(pair) );
-console.log({ answer: magnitude(pair) });
-
-// let arr = [[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]];
-// explode(arr)
-// console.log(JSON.stringify(arr) === "[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]")
-// 
-// arr = [[3,[[1,[7,3]],2]],[6,[5,[4,[3,2]]]]];
-// explode(arr)
-// console.log(JSON.stringify(arr));
-// console.log(JSON.stringify(arr) === "[[3,[[8,0],5]],[6,[5,[4,[3,2]]]]]")
-
-// let pair = [
-//   [[[[7,0],[7,7]],[[7,7],[7,8]]],[[[7,7],[8,8]],[[7,7],[8,7]]]],
-//   [7,[5,[[3,8],[1,4]]]]
-// ];
-// reduce(pair);
-
-// explode() test cases:
-// ---------------------
-// let arr = [[[[[9,8],1],2],3],4];
-// explode(arr);
-// let expected = '[[[[0,9],2],3],4]';
-// let actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
-// 
-// arr = [7,[6,[5,[4,[3,2]]]]];
-// explode(arr);
-// expected = '[7,[6,[5,[7,0]]]]';
-// actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
-// 
-// arr = [[6,[5,[4,[3,2]]]],1];
-// explode(arr);
-// expected = '[[6,[5,[7,0]]],3]';
-// actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
-// 
-// arr = [[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]];
-// explode(arr);
-// expected = '[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]';
-// actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
-// 
-// arr = [[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]];
-// explode(arr);
-// expected = '[[3,[2,[8,0]]],[9,[5,[7,0]]]]';
-// actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
-// 
-// arr = [[3,[2,[1,[7,3]]]],[[[[3,2],4],5],9]];
-// explode(arr);
-// expected = JSON.stringify([[3,[2,[8,0]]],[[[[6,2],4],5],9]]);
-// actual = JSON.stringify(arr);
-// console.log({ success: expected === actual, actual });
+console.log({ answer });
